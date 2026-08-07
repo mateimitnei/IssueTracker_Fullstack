@@ -118,23 +118,7 @@ Create the file `Backend/API/appsettings.json` (it's gitignored):
 
 > This uses Windows Authentication (`Trusted_Connection=True`). If using SQL Server Authentication, replace with `User Id=<user>;Password=<password>;` instead.
 
-### 3. Run the SQL setup scripts
-
-The database init script (`InitTables.sql`) runs automatically with the dev command, but the stored procedures need to be run manually **once**:
-
-```bash
-sqlcmd -S localhost,1433 -E -i ./Backend/Database/InitTables.sql
-sqlcmd -S localhost,1433 -E -i ./Backend/Database/ReadProcedures.sql
-sqlcmd -S localhost,1433 -E -i ./Backend/Database/WriteProcedures.sql
-```
-
-This will:
-- Create the `IssueTrackerDb` database (if it doesn't exist)
-- Create the tables: `TicketStatus`, `TicketPriority`, `Ticket`, `TicketAudit`
-- Seed lookup data (statuses and priorities) and mock tickets
-- Create stored procedures, views, and indexes
-
-### 4. Install dependencies
+### 3. Install dependencies
 
 From the project root:
 
@@ -144,7 +128,7 @@ npm install
 
 This installs both root and frontend dependencies automatically.
 
-### 5. Start the project
+### 4. Start the project
 
 From the **project root**:
 
@@ -152,19 +136,19 @@ From the **project root**:
 npm run dev
 ```
 
-This single command will:
-1. Run `InitTables.sql` via `sqlcmd` (ensures the DB schema is up-to-date)
-2. Start the **.NET backend** on `http://localhost:5051`
-3. Start the **Angular frontend** on `http://localhost:4200`
+This single command will automatically:
+1. **Initialize the database** (`npm run db:init`) — runs `InitTables.sql`, `ReadProcedures.sql`, and `WriteProcedures.sql` via `sqlcmd`. This creates the `IssueTrackerDb` database, tables, lookup/seed data, stored procedures, views, and indexes if they don't already exist.
+2. **Start the .NET backend** on `http://localhost:5051`
+3. **Start the Angular frontend** on `http://localhost:4200`
 
-Both processes run concurrently with color-coded, labeled output (BE = blue, FE = green).
+Both backend and frontend processes run concurrently with color-coded, labeled output (`BE` in blue, `FE` in green).
 
 ### Available scripts
 
 | Command              | Description                               |
 | -------------------- | ----------------------------------------- |
 | `npm run dev`        | Init DB + start backend & frontend        |
-| `npm run db:init`    | Run the database init script only         |
+| `npm run db:init`    | Run all DB init scripts (tables, views, procedures) |
 | `npm run start:backend`  | Start the .NET API only               |
 | `npm run start:frontend` | Start the Angular dev server only      |
 
