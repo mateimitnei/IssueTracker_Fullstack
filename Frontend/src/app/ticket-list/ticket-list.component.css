@@ -1,0 +1,133 @@
+p {
+    font-size: 16px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    position: sticky;
+    width: 100%;
+    background-color: white;
+    border-bottom: 2px solid #d6d6d6;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    z-index: 3;
+    top: 0;
+}
+
+.header .left-group {
+    position: absolute;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.header select {
+    padding: 14px;
+    border-radius: 7px;
+    border: 1px solid #373737;
+    background-color: #efefef;
+    color: black;
+    cursor: pointer;
+}
+
+.header select:focus {
+    outline: none;
+}
+
+input.search {
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid #373737;
+    border-radius: 7px;
+    margin: 30px auto;
+    display: block;
+}
+
+form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    gap: 40px;
+    background-color: #efefef;
+    padding: 30px;
+}
+
+form input,
+form select {
+    padding: 15px;
+    border-radius: 7px;
+    border: 1px solid #373737;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 15px;
+    border-radius: 7px;
+    border: 1px solid #333;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+}
+
+form button {
+    line-height: 1.6;
+    padding: 13px 18px;
+    background: linear-gradient(to right, rgb(255, 203, 30) 50%, #333 50%);
+    background-size: 205% 100%;
+    background-position: 100%;
+    transition: background-position 0.15s ease-in-out, border 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+form button:hover {
+    background-position: left;
+    color: black;
+}
+
+form button.disabled {
+    background: none;
+    color: gray;
+    cursor: not-allowed;
+}
+
+form button.disabled:hover {
+    color: gray;
+}
+
+form button:active {
+    border: 1px solid #e8e8e8;
+}
+
+.form-grid {
+    width: 400px;
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 25px 20px;
+}
+
+.form-group {
+    position: relative;
+}
+
+.description-group {
+    grid-column: 1 / -1;
+}
+
+.error {
+    position: absolute;
+    bottom: -27px;
+    left: 5px;
+    color: red;
+    font-size: 12px;
+}
+
+p.no-tickets {
+    font-size: 18px;
+    color: #767676;
+    text-align: center;
+    margin-top: 100px;
+}

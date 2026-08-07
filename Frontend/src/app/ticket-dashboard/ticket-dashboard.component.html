@@ -1,0 +1,23 @@
+<div class="container">
+    <h2>Ticket Counts</h2>
+
+    @if (ticketsCountObs | async; as ticketsCount) {
+    <div class="dash">
+        <div class="dash-card" routerLink="/tickets" (click)="setFilter('')">
+            All Tickets: {{ ticketsCount.reduce((sum, count) => sum + count, 0) }}
+        </div>
+        <div class="dash-card" routerLink="/tickets" (click)="setFilter(StatusEnum.TODO)">
+            {{ StatusEnum.TODO }}: {{ ticketsCount[0] }}
+        </div>
+        <div class="dash-card" routerLink="/tickets" (click)="setFilter(StatusEnum.IN_PROGRESS)">
+            {{ StatusEnum.IN_PROGRESS }}: {{ ticketsCount[1] }}
+        </div>
+        <div class="dash-card" routerLink="/tickets" (click)="setFilter(StatusEnum.IN_REVIEW)">
+            {{ StatusEnum.IN_REVIEW }}: {{ ticketsCount[2] }}
+        </div>
+        <div class="dash-card" routerLink="/tickets" (click)="setFilter(StatusEnum.DONE)">
+            {{ StatusEnum.DONE }}: {{ ticketsCount[3] }}
+        </div>
+    </div>
+    }
+</div>

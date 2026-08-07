@@ -1,0 +1,144 @@
+.all {
+    width: 1000px;
+    max-width: 80%;
+    margin: 50px auto;
+}
+
+.ticket-card {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: 1px solid #7e7e7e;
+    border-radius: 10px;
+    padding: 40px 60px;
+}
+
+.ticket-card h2 {
+    text-decoration: underline;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+.ticket-card p {
+    margin: 5px 0;
+}
+
+.info {
+    width: 70%;
+}
+
+form {
+    margin-top: 15px;
+    width: 400px;
+}
+
+form p {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    align-items: center;
+    gap: 15px;
+    margin: 15px 0;
+}
+
+form input,
+form select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #8d8d8d;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+button {
+    padding: 17px 22px;
+    border-radius: 7px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    background-color: #333;
+    transition: background-color 0.1s ease-in-out, border 0.1s ease-in-out;
+}
+
+.action-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    align-self: flex-start;
+
+}
+
+.action-buttons button {
+    padding: 15px 20px;
+}
+
+.edit-btn {
+    grid-column: 2;
+    background-color: #f9f9f9;
+    color: #333;
+    border: 1px solid #333;
+}
+
+.edit-btn:hover {
+    background-color: transparent;
+}
+
+.edit-btn:active {
+    color: #666;
+    border-color: #666;
+}
+
+.cancel-btn {
+    grid-column: 1;
+    background-color: #f9f9f9;
+    color: #b62727;
+    border: 1px solid #333;
+}
+
+.cancel-btn:hover {
+    background-color: transparent;
+}
+
+.cancel-btn:active {
+    color: #666;
+    border-color: #666;
+}
+
+.delete-btn {
+    grid-column: 3;
+    border: 1px solid white;
+}
+
+.delete-btn:hover {
+    background-color: #b62727;
+    border-color: #b62727;
+}
+
+.delete-btn:active {
+    border-color: white;
+}
+
+.back-btn {
+    margin-bottom: 20px;
+}
+
+.audit-log {
+    width: 100%;
+    margin-top: 50px;
+}
+
+.audit-log h2 {
+    text-decoration: none;
+    margin-bottom: 30px;
+}
+
+.audit-item {
+    border-top: 2px solid #d6d6d6;
+    border-radius: 5px;
+    list-style-type: none;
+    margin-top: 20px;
+    background-color: #f7f7f7;
+    padding: 10px 20px;
+}

@@ -1,0 +1,20 @@
+<div class="ticket-card">
+    <div class="info">
+        <a [routerLink]="['/tickets', ticket.ticketKey]">
+            @if (ticket.description) {
+            <h2 [attr.title]="ticket.description.substring(0, 50) + '...'">
+                [{{ ticket.ticketKey }}] {{ ticket.title | titlecase }}
+            </h2>
+            } @else {
+            <h2>[{{ ticket.ticketKey }}] {{ ticket.title | titlecase }}</h2>
+            }
+        </a>
+        <p><b>Created:</b> {{ ticket.createdAt | date:'medium' }}</p>
+        <p><b>Status:</b> {{ ticket.status }}</p>
+        <p><b>Priority:</b> {{ ticket.priority }}</p>
+        @if (ticket.description) {
+        <p><b>Description:</b> {{ ticket.description }}</p>
+        }
+    </div>
+    <button (click)="deleteTicket()">Delete</button>
+</div>

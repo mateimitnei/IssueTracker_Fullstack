@@ -1,0 +1,38 @@
+.container {
+    border: 2px solid #d9d9d9;
+    border-radius: 7px;
+    width: fit-content;
+    margin: 80px auto;
+    padding: 0px 50px 80px 50px;
+}
+
+h2 {
+    text-align: center;
+    margin: 80px;
+}
+
+.dash {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+}
+
+.dash-card {
+    width: 100px;
+    min-width: fit-content;
+    text-align: center;
+    padding: 30px;
+    border: 1px solid white;
+    border-radius: 7px;
+    cursor: pointer;
+    background-color: #e8e8e8;
+    color: black;
+    transition: 0.1s ease-in-out;
+}
+
+.dash-card:hover {
+    border-color: #333;
+}
