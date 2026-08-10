@@ -20,7 +20,7 @@ A fullstack issue tracking application for managing tickets with status and prio
 - **Auto-generated ticket keys** — Sequential `TK-101`, `TK-102`, etc. via a SQL Server sequence
 - **Dashboard** with ticket statistics (grouped by status and priority)
 - **Ticket detail view** with audit history
-- **Global error handling** — Custom middleware maps SQL error codes and .NET exceptions to proper HTTP status codes (400, 404, 409, 500)
+- **Global error handling** — Custom middleware maps SQL error codes and .NET exceptions to proper HTTP status codes (400, 404, 409, 500). Angular uses an interceptor to catch HTTP errors globally and display popup alerts.
 - **Swagger UI** available in development mode at `/swagger`
 
 ## Architecture
@@ -36,7 +36,8 @@ IssueTracker_Fullstack/
 │       ├── services/            # API communication (HttpClient)
 │       ├── models/              # TypeScript models
 │       ├── dtos/                # Data transfer objects
-│       └── enums/               # Status & priority enums
+│       ├── enums/               # Status & priority enums
+│       └── interceptors/        # Global error handler
 │
 ├── Backend/                     # .NET solution (Clean Architecture)
 │   ├── API/                     # Presentation layer — endpoints, middleware, config

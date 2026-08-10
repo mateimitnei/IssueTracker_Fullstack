@@ -13,8 +13,8 @@ public class DbServices {
         _db = db;
     }
     
-    public async Task<TicketDto> CreateAsync(CreateTicketDto dto)
-    { if (string.IsNullOrWhiteSpace(dto.Title))
+    public async Task<TicketDto> CreateAsync(CreateTicketDto dto) {
+        if (string.IsNullOrWhiteSpace(dto.Title))
             throw new ArgumentException("Title is required.");
         if (dto.Title.Length > 100)
             throw new ArgumentException("Title must be less than 100 characters.");
@@ -38,6 +38,8 @@ public class DbServices {
     public async Task<TicketDto> UpdateAsync(string ticketKey, UpdateTicketDto dto) {
         if (string.IsNullOrWhiteSpace(ticketKey))
             throw new ArgumentException("TicketKey is required.");
+        if (string.IsNullOrWhiteSpace(dto.Title))
+            throw new ArgumentException("Title is required.");
         
         var results = await _db.Database.SqlQueryRaw<TicketDto>(
                 "EXEC sp_UpdateTicket @TicketKey, @Title, @Description, @StatusId, @PriorityId",

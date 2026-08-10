@@ -87,37 +87,38 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
         });
     }
 
+    startEdit() {
+        this.editState.set(true);
+    }
+
     cancelEdit() {
         this.initForm();
         this.editState.set(false);
     }
 
-    saveOrEdit() {
-        if (!this.editState()) {
-            this.editState.set(true);
-        } else {
-            if (this.editForm.valid) {
-                const currentTicket = this.ticketSubject.value;
-                const formValue = this.editForm.value;
+    submitEdit() {
+        if (this.editForm.valid) {
+            const currentTicket = this.ticketSubject.value;
+            const formValue = this.editForm.value;
+            formValue.title = formValue.title?.trim();
+            formValue.description = formValue.description?.trim();
 
-                // Check if there are any changes to be made
-                if (!currentTicket ||
-                    formValue.title === currentTicket.title &&
-                    formValue.description === currentTicket.description &&
-                    formValue.statusId === STATUS_MAP[currentTicket.status as StatusEnum] &&
-                    formValue.priorityId === PRIORITY_MAP[currentTicket.priority as PriorityEnum]) {
+            // Check if there are any changes to be made
+            if (!currentTicket ||
+                formValue.title === currentTicket.title &&
+                formValue.description === currentTicket.description &&
+                formValue.statusId === STATUS_MAP[currentTicket.status] &&
+                formValue.priorityId === PRIORITY_MAP[currentTicket.priority]) {
 
-                    this.editState.set(false);
-                    return;
-                }
-
-                this.ticketService.patchTicket(this.key!, formValue as PatchTicketDto)
-                    .subscribe((updatedTicket) => {
-                        this.ticketSubject.next(updatedTicket);
-                        this.loadAudits();
-                        this.editState.set(false);
-                    });
+                return;
             }
+
+            this.ticketService.patchTicket(this.key!, formValue as PatchTicketDto)
+                .subscribe((updatedTicket) => {
+                    this.ticketSubject.next(updatedTicket);
+                    this.loadAudits();
+                    this.editState.set(false);
+                });
         }
     }
 

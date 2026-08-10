@@ -1,3 +1,6 @@
+import { PriorityEnum } from "../enums/priority.enum";
+import { StatusEnum } from "../enums/status.enum";
+
 export interface Audit {
     id: number;
     ticketId: number;
@@ -6,6 +9,6 @@ export interface Audit {
     ticketDescription: string;
     ticketModifiedAt: Date;
     ticketModificationType: string;
-    status: string;
-    priority: string;
+    status: StatusEnum;
+    priority: PriorityEnum;
 }

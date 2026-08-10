@@ -1,5 +1,8 @@
+import { PriorityEnum } from "../enums/priority.enum";
+import { StatusEnum } from "../enums/status.enum";
+
 export interface TicketStatsDto {
-    status: string;
-    priority: string;
+    status: StatusEnum;
+    priority: PriorityEnum;
     totalTickets: number;
 }

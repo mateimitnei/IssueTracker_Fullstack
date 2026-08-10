@@ -52,8 +52,8 @@ GO
 
 CREATE OR ALTER PROCEDURE sp_UpdateTicket
     @TicketKey NVARCHAR(100),
-    @Title NVARCHAR(100) = NULL,
-    @Description NVARCHAR(1000) = NULL,
+    @Title NVARCHAR(101) = NULL,
+    @Description NVARCHAR(1001) = NULL,
     @StatusId INT = NULL,
     @PriorityId INT = NULL
 AS
@@ -63,15 +63,18 @@ BEGIN
     BEGIN TRY
         IF NOT EXISTS (SELECT 1 FROM Ticket WHERE TicketKey = @TicketKey)
             THROW 50002, 'Ticket not found.', 1;
-            
-        IF @Title IS NOT NULL AND LEN(@Title) > 100
-            THROW 50005, 'Title must be less than 100 characters.', 1;
+
+        IF @Title IS NOT NULL AND (LEN(TRIM(@Title)) > 100 OR LEN(TRIM(@Title)) = 0)
+            THROW 50001, 'Title must be less than 100 characters and not empty.', 1;
+
+        IF @Description IS NOT NULL AND LEN(TRIM(@Description)) > 1000
+            THROW 50001, 'Description must be less than 1000 characters.', 1;
 
         IF @PriorityId IS NOT NULL AND NOT EXISTS (SELECT 1 FROM TicketPriority WHERE Id = @PriorityId)
-            THROW 50003, 'Invalid priority type.', 1;
+            THROW 50001, 'Invalid priority type.', 1;
     
         IF @StatusId IS NOT NULL AND NOT EXISTS (SELECT 1 FROM TicketStatus WHERE Id = @StatusId)
-            THROW 50004, 'Invalid status type.', 1;
+            THROW 50001, 'Invalid status type.', 1;
     
         BEGIN TRAN;
             INSERT INTO TicketAudit (TicketId, TicketKey, TicketTitle, TicketDescription, TicketStatusId, TicketPriorityId, TicketModifiedAt, TicketModificationType)

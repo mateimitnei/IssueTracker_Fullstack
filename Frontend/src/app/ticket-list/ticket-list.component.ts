@@ -73,7 +73,11 @@ export class TicketListComponent implements OnInit {
             return;
         }
 
-        this.ticketService.addTicket(this.ticketForm.value as CreateTicketDto).subscribe(() => {
+        const formValue = this.ticketForm.value;
+        formValue.title = formValue.title?.trim();
+        formValue.description = formValue.description?.trim();
+
+        this.ticketService.addTicket(formValue as CreateTicketDto).subscribe(() => {
             this.displayTickets();
             this.ticketForm.reset({ title: '', priorityId: 0, description: '' });
             this.pressedSubmit = false;

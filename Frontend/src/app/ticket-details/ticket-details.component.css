@@ -30,26 +30,32 @@
 
 form {
     margin-top: 15px;
-    width: 400px;
+    width: 70%;
+    min-width: 300px;
 }
 
-form p {
+.form-field {
     display: grid;
     grid-template-columns: 100px 1fr;
     align-items: center;
-    gap: 15px;
-    margin: 15px 0;
+    gap: 0 15px;
+    margin: 7px 0;
 }
 
-form input,
-form select {
+.form-field input,
+.form-field select {
     width: 100%;
     box-sizing: border-box;
-    padding: 5px;
+    padding: 7px;
     border-radius: 5px;
     border: 1px solid #8d8d8d;
     font-family: inherit;
-    font-size: inherit;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    grid-column: 2;
 }
 
 button {
@@ -67,11 +73,10 @@ button {
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     align-self: flex-start;
-
 }
 
 .action-buttons button {
-    padding: 15px 20px;
+    padding: 14px 18px;
 }
 
 .edit-btn {
@@ -88,6 +93,10 @@ button {
 .edit-btn:active {
     color: #666;
     border-color: #666;
+}
+
+.save-btn {
+    color: #124bb5;
 }
 
 .cancel-btn {
