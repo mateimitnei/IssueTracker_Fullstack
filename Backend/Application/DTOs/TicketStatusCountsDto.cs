@@ -1,6 +1,5 @@
 namespace Application.DTOs;
 
-public record TicketStatsDto(
+public record TicketStatusCountsDto(
     string Status,
-    string Priority,
     int TotalTickets);

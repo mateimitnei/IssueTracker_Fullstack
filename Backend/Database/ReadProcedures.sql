@@ -57,7 +57,7 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER PROCEDURE sp_GetTicketStats
+CREATE OR ALTER PROCEDURE sp_GetTicketMixedStats
 AS
 BEGIN
     SELECT
@@ -70,6 +70,21 @@ BEGIN
     GROUP BY 
         TicketStatus.Name, 
         TicketPriority.Name
+    HAVING 
+        COUNT(Ticket.Id) > 0;
+END
+GO
+
+CREATE OR ALTER PROCEDURE sp_GetTicketStatusCounts
+AS
+BEGIN
+    SELECT
+        TicketStatus.Name AS Status,
+        COUNT(Ticket.Id) AS TotalTickets
+    FROM Ticket
+    INNER JOIN TicketStatus ON Ticket.StatusId = TicketStatus.Id
+    GROUP BY 
+        TicketStatus.Name
     HAVING 
         COUNT(Ticket.Id) > 0;
 END

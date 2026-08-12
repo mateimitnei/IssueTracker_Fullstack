@@ -88,10 +88,17 @@ public class DbServices {
             .ToListAsync();
     }
     
-    public async Task<List<TicketStatsDto>> GetTicketStatsAsync()
+    public async Task<List<TicketMixedStatsDto>> GetTicketMixedStatsAsync()
     {
         return await _db.Database
-            .SqlQuery<TicketStatsDto>($"EXEC sp_GetTicketStats")
+            .SqlQuery<TicketMixedStatsDto>($"EXEC sp_GetTicketMixedStats")
+            .ToListAsync();
+    }
+
+    public async Task<List<TicketStatusCountsDto>> GetTicketStatusCountsAsync()
+    {
+        return await _db.Database
+            .SqlQuery<TicketStatusCountsDto>($"EXEC sp_GetTicketStatusCounts")
             .ToListAsync();
     }
 }

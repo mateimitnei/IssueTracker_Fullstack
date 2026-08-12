@@ -31,10 +31,16 @@ public static class TicketReadEndpoints
         });
         
         // Bonus
-        group.MapGet("/stats", async (DbServices dbs) =>
+        group.MapGet("/stats/mixed", async (DbServices dbs) =>
         {
-            var stats = await dbs.GetTicketStatsAsync();
+            var stats = await dbs.GetTicketMixedStatsAsync();
             return Results.Ok(stats);
+        });
+
+        group.MapGet("/stats/status", async (DbServices dbs) =>
+        {
+            var statusCounts = await dbs.GetTicketStatusCountsAsync();
+            return Results.Ok(statusCounts);
         });
  
         return group;

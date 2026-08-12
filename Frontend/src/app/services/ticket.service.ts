@@ -77,21 +77,7 @@ export class TicketService {
         return this.httpClient.get<Audit[]>(`${this.apiUrl}/${key}/audit`);
     }
 
-    getTicketsCountByStatus(): Observable<number[]> {
-        const statusOrder = [
-            StatusEnum.TODO,
-            StatusEnum.IN_PROGRESS,
-            StatusEnum.IN_REVIEW,
-            StatusEnum.DONE
-        ];
-
-        return this.httpClient.get<TicketStatsDto[]>(`${this.apiUrl}/stats`).pipe(
-            map(stats =>
-                statusOrder.map(status =>
-                    stats.filter(item => item.status === status)
-                        .reduce((sum, item) => sum + (item.totalTickets ?? 0), 0)
-                )
-            )
-        );
+    getTicketsCountByStatus(): Observable<{status: StatusEnum; totalTickets: number}[]> {
+        return this.httpClient.get<TicketStatsDto[]>(`${this.apiUrl}/stats/status`);
     }
 }
