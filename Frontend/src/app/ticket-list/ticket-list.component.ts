@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
 import { Observable, combineLatest, map } from 'rxjs';
@@ -31,10 +31,10 @@ export class TicketListComponent implements OnInit {
         description: new FormControl('', [Validators.maxLength(1000)])
     });
 
-    constructor(private ticketService: TicketService) { }
+    constructor(private ticketService: TicketService, private cdr: ChangeDetectorRef) { }
 
     private filterTickets(): Observable<Ticket[]> {
-        return combineLatest([this.ticketService.ticketsObs, this.ticketService.getFilter()])
+        return combineLatest([this.ticketService.loadTickets(), this.ticketService.getFilter()])
             .pipe(
                 map(([tickets, filter]) => {
                     if (filter === '') {
@@ -81,11 +81,15 @@ export class TicketListComponent implements OnInit {
             this.displayTickets();
             this.ticketForm.reset({ title: '', priorityId: 0, description: '' });
             this.pressedSubmit = false;
+            this.cdr.markForCheck();
         });
     }
 
     deleteTicketByKey(ticketKey: string) {
-        this.ticketService.deleteTicket(ticketKey).subscribe();
+        this.ticketService.deleteTicket(ticketKey).subscribe(() => {
+            this.displayTickets();
+            this.cdr.detectChanges();
+        });
     }
 
     setFilter(status: string) {

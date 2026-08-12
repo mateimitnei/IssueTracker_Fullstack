@@ -17,15 +17,10 @@ export class TicketService {
 
     private statusFilter = new BehaviorSubject<string>('');
 
-    private ticketsSubject = new BehaviorSubject<Ticket[]>([]);
-    ticketsObs = this.ticketsSubject.asObservable();
-
     constructor(private httpClient: HttpClient) { }
 
     loadTickets(): Observable<Ticket[]> {
-        return this.httpClient.get<Ticket[]>(this.apiUrl).pipe(
-            tap(tickets => this.ticketsSubject.next(tickets))
-        );
+        return this.httpClient.get<Ticket[]>(this.apiUrl);
     }
 
     getFilter(): Observable<string> {
@@ -37,36 +32,15 @@ export class TicketService {
     }
 
     addTicket(formValues: CreateTicketDto): Observable<Ticket> {
-        return this.httpClient.post<Ticket>(this.apiUrl, formValues).pipe(
-            tap(createdTicket => {
-                const currentTickets = this.ticketsSubject.value;
-                this.ticketsSubject.next([...currentTickets, createdTicket]);
-            })
-        );
+        return this.httpClient.post<Ticket>(this.apiUrl, formValues);
     }
 
     patchTicket(key: string, dto: PatchTicketDto): Observable<Ticket> {
-        return this.httpClient.patch<Ticket>(`${this.apiUrl}/${key}`, dto).pipe(
-            tap(updatedTicket => {
-                const currentTickets = this.ticketsSubject.value;
-                this.ticketsSubject.next(
-                    currentTickets.map(ticket =>
-                        ticket.ticketKey === key ? updatedTicket : ticket
-                    )
-                );
-            })
-        );
+        return this.httpClient.patch<Ticket>(`${this.apiUrl}/${key}`, dto);
     }
 
     deleteTicket(key: string): Observable<void> {
-        return this.httpClient.delete<void>(`${this.apiUrl}/${key}`).pipe(
-            tap(() => {
-                const currentTickets = this.ticketsSubject.value;
-                this.ticketsSubject.next(
-                    currentTickets.filter(ticket => ticket.ticketKey !== key)
-                );
-            })
-        );
+        return this.httpClient.delete<void>(`${this.apiUrl}/${key}`);
     }
 
     getTicketByKey(key: string): Observable<Ticket> {
