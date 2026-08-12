@@ -47,11 +47,11 @@
 </form>
 
 @if (filteredTicketsObs | async; as tickets) {
-@if (tickets.length === 0) {
-<p class="no-tickets">Ticket list is empty.</p>
-} @else {
-@for (ticket of tickets; track ticket.id) {
-<app-ticket-card [ticket]="ticket" (delete)="deleteTicketByKey($event)" />
-}
-}
+  @if (tickets.length === 0) {
+    <p class="no-tickets">Ticket list is empty.</p>
+  } @else {
+    @for (ticket of tickets; track ticket.id) {
+      <app-ticket-card [ticket]="ticket" (delete)="deleteTicketByKey($event)" />
+    }
+  }
 }
